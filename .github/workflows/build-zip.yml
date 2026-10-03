@@ -1,1 +1,34 @@
+名称: 构建PWA压缩包
 
+在……上:
+推动:
+标签:
+      - ‘v*’
+工作流调度:
+
+权限:
+目录: 写作
+
+工作:
+构建:
+句子过长: ubuntu-latest
+步骤:
+      - 使用: actions/checkout@v4
+      - 使用: actions/setup-node@v4
+与……一起:
+节点版本: 20
+      - 名称: 安装依赖项
+运行: npm安装 || 真
+      - 名称: 复制dist
+运行: node copy-dist.mjs || true
+      - 名称: ZIP压缩包
+运行: |
+zip -r zjh-pwa.zip. \
+-x‘node_modules/*’'.git/*' '.github/*' 'scripts/*' \
+-x'*.zip' '*.log'
+      - 名称: 上传至发布版
+用途: softprops/action-gh-release@v2
+与……一起:
+文件: zjh-pwa.zip
+        环境:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
