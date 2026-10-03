@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b1f17" />
+  <title>炸金花 · 联机</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="icon.svg" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- 联机地址：和 index.html 保持一致，改成跑 server 的电脑/手机局域网IP -->
+  <script>window.__ZJH_WS__ = '192.168.1.88:3000';</script>
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <h1>🂡 炸金花 · 联机</h1>
+      <nav class="mode-switch">
+        <a href="index.html">单机</a>
+        <a href="game.html" class="active">联机</a>
+      </nav>
+    </header>
+
+    <main class="online">
+      <section id="lobby" class="lobby">
+        <div class="row">
+          <input id="nick" placeholder="昵称" maxlength="8" />
+        </div>
+        <div class="row">
+          <input id="roomId" placeholder="房间号(3位)" maxlength="3" />
+          <button id="btnCreate">建房</button>
+          <button id="btnJoin">加入</button>
+        </div>
+        <div id="roomInfo" class="room-info"></div>
+        <div id="players" class="players"></div>
+        <button id="btnStartGame" style="display:none">开始游戏</button>
+      </section>
+
+      <section id="table" class="table" style="display:none">
+        <div class="players-live" id="livePlayers"></div>
+        <div class="self-hand" id="selfHand"></div>
+        <div class="pot" id="potBox">底池：6</div>
+        <div class="actions">
+          <button id="btnLook2">看牌</button>
+          <button id="btnCall2">跟注</button>
+          <button id="btnRaise2">加注</button>
+          <button id="btnFold2">弃牌</button>
+          <button id="btnOpen2">开牌</button>
+        </div>
+        <div id="turnTip" class="turn-tip"></div>
+      </section>
+
+      <section class="chatbox">
+        <input id="chatInput" placeholder="说点啥…" maxlength="80" />
+        <button id="btnChat">发送</button>
+        <div id="chatList" class="chat-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="net.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js').catch(()=>{});
+      });
+    }
+  </script>
+</body>
+</html>

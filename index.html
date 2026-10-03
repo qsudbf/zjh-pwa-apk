@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b1f17" />
+  <title>炸金花 · PWA</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="icon.svg" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- 联机地址：改成你跑 server 的那台设备局域网IP，如 192.168.3.7:3000 -->
+  <script>window.__ZJH_WS__ = '192.168.1.88:3000';</script>
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <h1>🂡 炸金花</h1>
+      <nav class="mode-switch">
+        <a href="index.html" class="active">单机</a>
+        <a href="game.html">联机</a>
+      </nav>
+    </header>
+
+    <main class="solo">
+      <section class="table">
+        <div class="ai-players" id="aiPlayers"></div>
+        <div class="self-hand" id="selfHand"></div>
+      </section>
+
+      <section class="panel">
+        <div class="stats" id="stats"></div>
+        <div class="actions">
+          <button id="btnStart">开始一局</button>
+          <button id="btnLook">看牌</button>
+          <button id="btnCall">跟注</button>
+          <button id="btnRaise">加注</button>
+          <button id="btnFold">弃牌</button>
+          <button id="btnOpen">开牌</button>
+        </div>
+        <div class="pot" id="potBox">底池：6</div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js').catch(()=>{});
+      });
+    }
+  </script>
+</body>
+</html>

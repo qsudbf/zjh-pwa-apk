@@ -1,0 +1,42 @@
+{
+  "name": "炸金花 · PWA",
+  "short_name": "炸金花",
+  "description": "单机AI + 同WiFi联机的炸金花，可装桌面/安卓",
+  "lang": "zh-CN",
+  "start_url": "./index.html",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#07261c",
+  "theme_color": "#0b3d2e",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "单机模式",
+      "url": "./index.html"
+    },
+    {
+      "name": "联机模式",
+      "url": "./game.html"
+    }
+  ]
+}

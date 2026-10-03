@@ -1,0 +1,99 @@
+/* style.css —— 炸金花牌桌样式（暗绿中式牌桌） */
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+:root{
+  --felt:#0b3d2e; --felt2:#07261c;
+  --gold:#e8c46a; --gold2:#b8913a;
+  --ink:#f5f1e6; --red:#e63946; --green:#2a9d6e;
+  --card:#fffdf7; --shadow:0 6px 20px rgba(0,0,0,.45);
+}
+html,body{ height:100%; }
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  background:radial-gradient(circle at 50% 20%,var(--felt),var(--felt2));
+  color:var(--ink); min-height:100vh; padding:env(safe-area-inset-top) 12px env(safe-area-inset-bottom);
+  overflow-x:hidden;
+}
+#app{ max-width:520px; margin:0 auto; }
+
+/* ===== 顶栏 ===== */
+.topbar{ display:flex; align-items:center; justify-content:space-between; padding:14px 6px 10px; }
+.topbar h1{ font-size:22px; letter-spacing:1px; color:var(--gold); text-shadow:0 2px 6px rgba(0,0,0,.5); }
+.mode-switch a{
+  color:var(--ink); text-decoration:none; font-size:14px; padding:6px 12px; border-radius:20px;
+  border:1px solid rgba(255,255,255,.25); margin-left:6px; opacity:.7;
+}
+.mode-switch a.active{ background:var(--gold); color:#3a2a00; opacity:1; border-color:var(--gold); font-weight:700; }
+
+/* ===== 牌桌 ===== */
+.table{
+  background:radial-gradient(ellipse at center,rgba(255,255,255,.06),transparent 70%),
+             var(--felt);
+  border:8px solid #5a3818; border-radius:24px; box-shadow:var(--shadow), inset 0 0 60px rgba(0,0,0,.5);
+  padding:20px 14px; min-height:300px; position:relative; margin-bottom:16px;
+}
+.ai-players,.players-live{ display:flex; justify-content:space-around; gap:8px; margin-bottom:24px; }
+.self-hand{ display:flex; justify-content:center; gap:10px; margin-top:10px; }
+
+/* ===== 牌 ===== */
+.card{
+  width:68px; height:98px; border-radius:10px; background:var(--card); color:#2b2b2b;
+  box-shadow:0 3px 8px rgba(0,0,0,.4); display:flex; flex-direction:column;
+  justify-content:space-between; padding:6px 8px; font-weight:800; position:relative;
+  transform:rotateX(0deg); transition:transform .2s;
+}
+.card .rk{ font-size:20px; line-height:1; }
+.card .st{ font-size:24px; align-self:flex-end; line-height:1; }
+.card.red .rk,.card.red .st{ color:var(--red); }
+.card.back{
+  background:repeating-linear-gradient(45deg,#1a4a8a,#1a4a8a 6px,#12356a 6px,#12356a 12px);
+  box-shadow:inset 0 0 0 3px rgba(255,255,255,.2);
+}
+.card.flip{ animation:flip .4s ease; }
+@keyframes flip{ from{transform:rotateY(90deg);} to{transform:rotateY(0);} }
+
+/* ===== 操作区 ===== */
+.panel,.lobby,.chatbox{ background:rgba(0,0,0,.28); border-radius:16px; padding:14px; margin-bottom:14px; }
+.stats{ font-size:13px; opacity:.85; margin-bottom:12px; line-height:1.6; }
+.actions{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+button{
+  font-family:inherit; font-size:15px; font-weight:700; color:#3a2a00; background:linear-gradient(180deg,var(--gold),var(--gold2));
+  border:none; border-radius:12px; padding:12px 0; box-shadow:0 3px 0 #7a6124; active{transform:translateY(2px);box-shadow:0 1px 0 #7a6124;}
+}
+button:active{ transform:translateY(2px); box-shadow:0 1px 0 #7a6124; }
+.pot{ text-align:center; font-size:18px; color:var(--gold); margin-top:14px; font-weight:700; }
+
+/* ===== 联机 ===== */
+.row{ display:flex; gap:10px; margin-bottom:10px; }
+input{
+  flex:1; font-family:inherit; font-size:16px; padding:12px; border-radius:12px; border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.1); color:var(--ink); outline:none;
+}
+input::placeholder{ color:rgba(255,255,255,.45); }
+.room-info{ text-align:center; color:var(--gold); font-size:16px; margin:10px 0; font-weight:700; }
+.players{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:12px; }
+.players .chip{ background:rgba(255,255,255,.12); padding:8px 14px; border-radius:20px; font-size:14px; }
+.players .chip.host{ background:var(--gold); color:#3a2a00; font-weight:700; }
+.chatbox{ display:flex; flex-wrap:wrap; gap:8px; }
+.chatbox #chatInput{ flex:1 1 60%; }
+.chatbox #btnChat{ flex:0 0 auto; padding:12px 18px; }
+.chat-list{ width:100%; max-height:150px; overflow-y:auto; margin-top:8px; font-size:13px; line-height:1.7; }
+.chat-list .me{ color:var(--gold); }
+.turn-tip{ text-align:center; margin-top:10px; font-size:14px; color:var(--gold); min-height:20px; }
+
+/* ===== 结果弹层 ===== */
+#resultMask{
+  position:fixed; inset:0; background:rgba(0,0,0,.7); display:none; align-items:center; justify-content:center; z-index:99;
+}
+#resultMask.show{ display:flex; }
+.result-card{
+  background:linear-gradient(180deg,#1c4a38,#0d2e22); border:2px solid var(--gold); border-radius:20px;
+  padding:24px; text-align:center; max-width:320px; width:90%; box-shadow:0 10px 40px rgba(0,0,0,.6);
+}
+.result-card h2{ color:var(--gold); font-size:24px; margin-bottom:14px; }
+.result-card .big-type{ font-size:32px; font-weight:900; color:var(--red); margin:10px 0; }
+
+/* ===== 小屏适配 ===== */
+@media(max-width:360px){
+  .card{ width:58px; height:84px; }
+  .actions{ grid-template-columns:repeat(2,1fr); }
+}

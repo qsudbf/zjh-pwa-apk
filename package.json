@@ -1,0 +1,26 @@
+{
+  "name": "zjh-pwa",
+  "version": "1.0.0",
+  "description": "炸金花 PWA：单机AI + 同WiFi联机，可转安卓APK（Capacitor）",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "build": "node scripts/copy-dist.mjs",
+    "cap:add": "cap add android",
+    "cap:sync": "npm run build && cap sync android",
+    "cap:open": "cap open android",
+    "zip": "node scripts/copy-dist.mjs && cd dist && zip -r ../zjh-pwa.zip ."
+  },
+  "keywords": ["炸金花","poker","pwa","capacitor","android"],
+  "author": "zjh",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.1.2",
+    "@capacitor/core": "^6.1.2",
+    "@capacitor/android": "^6.1.2"
+  }
+}
