@@ -13,22 +13,30 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - name: Install deps
-        run: npm install || true
-      - name: Copy dist
-        run: node copy-dist.mjs || true
-      - name: Package ZIP
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build (若你项目有 npm run build 才需要；没有可注释)
+        run: npm run build
+
+      - name: Create zip
         run: |
-          zip -r zjh-pwa.zip . \
-            -x 'node_modules/*' '.git/*' '.github/*' 'scripts/*' \
-            -x '*.zip' '*.log'
+          # 方案A：把当前项目（排除.git/.github/node_modules）打成 zip
+          zip -r zjh-pwa.zip . -x ".git/*" ".github/*" "node_modules/*"
+          # 方案B：如果你的产物在 dist/，改用：
+          # cd dist && zip -r ../zjh-pwa.zip ./*
+
       - name: Upload to Release
         uses: softprops/action-gh-release@v2
         with:
           files: zjh-pwa.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          generate_release_notes: true
